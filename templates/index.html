@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>琉大掲示板</title>
+</head>
+<body>
+    <header>
+        <a href="{{ url_for('top') }}">トップページ</a>
+        <a href="{{ url_for('mypage')}}">マイページ</a>
+    </header>
+
+    <h1>琉大掲示板</h1>
+
+    <!-- フラッシュメッセージの表示 -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flash-messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+
+    <table class="nav-table">
+
+        <tr>
+            <td><a href="{{ url_for('search') }}">話題検索</a></td>
+            <td><a href="{{ url_for('category') }}">ジャンル</a></td>
+        </tr>
+    </table>
+
+    <form class="post-form" action="{{ url_for('post') }}" method="POST">
+        <label for="title">タイトル</label>
+        <input type="text" id="title" name="title" required>
+        
+        <label for="content">内容</label>
+        <textarea id="content" name="content" required></textarea>
+        
+        <label for="category">ジャンル選択</label>
+        <select id="category" name="category">
+            <option value="講義情報">講義情報</option>
+            <option value="就活">就活</option>
+            <option value="企業">企業</option>
+            <option value="バイト">バイト</option>
+            <option value="教授">教授</option>
+            <option value="国地">国地</option>
+            <option value="人文">人文</option>
+            <option value="工学">工学</option>
+            <option value="理学">理学</option>
+            <option value="医学">医学</option>
+            <option value="農学">農学</option>
+            <option value="出会い">出会い</option>
+            <option value="留学">留学</option>
+            <option value="集中講義">集中講義</option>
+        </select>
+        
+        <button type="submit">投稿</button>
+    </form>
+
+    <div class="floating-button"><a href="{{ url_for('index') }}">投稿</a></div>
+</body>
+</html>
